@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class PostTest {
-    
+
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 

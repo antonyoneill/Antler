@@ -13,24 +13,24 @@ import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
 import tech.antonyoneill.antler.exceptions.CommandException;
 import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
-import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 import tech.antonyoneill.antler.utils.UserManager;
 
 /**
- * These tests use Thread.sleep(1) in order 
+ * These tests use Thread.sleep(1) in order
+ * 
  * @author @antonyoneill
  *
  */
 public class WallCommandTest extends CommandTest {
 
     WallCommand command;
-    
+
     @Before
     public void setup() {
         setupApp();
         command = new WallCommand(app);
     }
-    
+
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 
@@ -41,7 +41,7 @@ public class WallCommandTest extends CommandTest {
         assertTrue("Accepts single word with dashes wall", command.isInputValid("single-user wall"));
         assertFalse("Declines input with spaces wall", command.isInputValid("some space wall"));
     }
-    
+
     @Test
     public void testExecutionWithInvalidInput() throws CommandException {
         expectedEx.expect(CommandSyntaxException.class);
@@ -56,15 +56,15 @@ public class WallCommandTest extends CommandTest {
         app.getUserManager().post(user, "post 2");
         Thread.sleep(1);
         app.getUserManager().post(user, "post 3");
-        
+
         command.execute("tester wall");
-        
+
         Post[] postsPrinted = printer.getPostsPrinted();
         assertEquals("post 3", postsPrinted[0].getMessage());
         assertEquals("post 2", postsPrinted[1].getMessage());
         assertEquals("post 1", postsPrinted[2].getMessage());
     }
-    
+
     @Test
     public void testWallShowsFollowPosts() throws CommandException, InterruptedException {
         UserManager userManager = app.getUserManager();
@@ -78,9 +78,9 @@ public class WallCommandTest extends CommandTest {
         userManager.post(user, "ok!");
         Thread.sleep(1);
         userManager.post(target, "thanks for the follow");
-        
+
         command.execute("follower wall");
-        
+
         Post[] postsPrinted = printer.getPostsPrinted();
         assertEquals("thanks for the follow", postsPrinted[0].getMessage());
         assertEquals("ok!", postsPrinted[1].getMessage());

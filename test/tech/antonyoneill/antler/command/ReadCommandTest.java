@@ -18,11 +18,13 @@ import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 public class ReadCommandTest extends CommandTest {
 
     ReadCommand command;
+
     @Before
     public void setup() {
         setupApp();
         command = new ReadCommand(app);
     }
+
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 
@@ -33,7 +35,7 @@ public class ReadCommandTest extends CommandTest {
         assertTrue("Accepts single word with dashes", command.isInputValid("single-user"));
         assertFalse("Declines input with spaces", command.isInputValid("some space"));
     }
-    
+
     @Test
     public void testExecutionWithInvalidInput() throws CommandException {
         expectedEx.expect(CommandSyntaxException.class);
@@ -44,14 +46,14 @@ public class ReadCommandTest extends CommandTest {
     public void testExecuteUserExists() throws CommandException {
         User user = app.getUserManager().addUser("tester");
         app.getUserManager().post(user, "Hello World");
-        
+
         command.execute(user.getUsername());
-        
+
         Post[] printedPosts = printer.getPostsPrinted();
         assertEquals("Hello World", printedPosts[0].toString());
         assertEquals("", getErrContent()[0]);
     }
-    
+
     @Test
     public void testExecuteUserNoExists() throws CommandException {
         expectedEx.expect(UnableToFindUserException.class);

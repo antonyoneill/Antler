@@ -25,5 +25,5 @@ public interface User {
      * @return the Users this User follows
      */
     public Set<User> getFollows();
-    
+
 }

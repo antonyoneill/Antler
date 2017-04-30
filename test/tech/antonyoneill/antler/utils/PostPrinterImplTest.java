@@ -18,8 +18,8 @@ import tech.antonyoneill.antler.tests.StreamTest;
 public class PostPrinterImplTest extends StreamTest {
 
     PostPrinter printer = new PostPrinterImpl(new MockTimeUtil());
-    User user = new UserImpl("Tester");
-    
+    User        user    = new UserImpl("Tester");
+
     @Test
     public void testPrintPosts() {
         List<Post> posts = new ArrayList<>();
@@ -34,7 +34,7 @@ public class PostPrinterImplTest extends StreamTest {
         assertEquals("Tester - post 2 (DIFF)", out[1]);
         assertEquals("Tester - post 3 (DIFF)", out[2]);
     }
-    
+
     @Test
     public void testPrintException() {
         printer.printException(new UnableToFindUserException("Tester"));
@@ -42,7 +42,7 @@ public class PostPrinterImplTest extends StreamTest {
         assertEquals(1, err.length);
         assertEquals("Unable to find user [Tester]", err[0]);
     }
-    
+
     private class MockTimeUtil extends TimeUtil {
         public String timeDifference(Instant then) {
             return "DIFF";

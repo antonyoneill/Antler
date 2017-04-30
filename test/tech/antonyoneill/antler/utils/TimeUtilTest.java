@@ -12,14 +12,14 @@ public class TimeUtilTest {
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
-    private TimeUtil timeUtil = new TimeUtil();
-    
+    private TimeUtil         timeUtil   = new TimeUtil();
+
     @Test
     public void testArgument() {
         expectedEx.expect(IllegalArgumentException.class);
         timeUtil.timeDifference(null);
     }
-    
+
     @Test
     public void testDifference() {
         assertEquals("just now", timeUtil.timeDifference(Instant.now()));

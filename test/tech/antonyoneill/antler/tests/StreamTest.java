@@ -25,11 +25,11 @@ public class StreamTest {
     public String[] getErrContent() {
         return trimArray(errContent.toString().split("\n"));
     }
-    
+
     private String[] trimArray(String[] input) {
         return Arrays.stream(input).map(line -> line.trim()).toArray(size -> new String[size]);
     }
-    
+
     @After
     public void cleanUpStreams() {
         System.setOut(null);

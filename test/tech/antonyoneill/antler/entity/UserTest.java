@@ -44,20 +44,20 @@ public class UserTest {
         expectedEx.reportMissingExceptionWithMessage("Expected exception with empty username");
         new UserImpl("");
     }
-    
+
     @Test
     public void testEqualityEqual() {
         User one = new UserImpl("one");
         assertTrue(one.equals(one));
     }
-    
+
     @Test
     public void testEqualityNotEqual() {
         User one = new UserImpl("one");
         User two = new UserImpl("two");
         assertFalse(one.equals(two));
     }
-    
+
     @Test
     public void testEqualityNotUser() {
         User one = new UserImpl("one");

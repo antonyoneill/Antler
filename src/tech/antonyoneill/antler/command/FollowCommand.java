@@ -12,12 +12,12 @@ import tech.antonyoneill.antler.utils.UserManager;
 public class FollowCommand implements Command {
 
     private AntlerApplication app;
-    private Pattern pattern = Pattern.compile("([^\\s]+) follows ([^\\s]+)");
-    
+    private Pattern           pattern = Pattern.compile("([^\\s]+) follows ([^\\s]+)");
+
     public FollowCommand(AntlerApplication app) {
         this.app = app;
     }
-    
+
     @Override
     public boolean isInputValid(String input) {
         return pattern.matcher(input).matches();
@@ -29,12 +29,12 @@ public class FollowCommand implements Command {
         if (!matcher.matches()) {
             throw new CommandSyntaxException(input);
         }
-        
+
         String leftUsername = matcher.group(1);
         String rightUsername = matcher.group(2);
 
         UserManager userManager = app.getUserManager();
-        
+
         User leftUser = userManager.getUser(leftUsername);
         User rightUser = userManager.getUser(rightUsername);
 

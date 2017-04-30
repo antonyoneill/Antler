@@ -31,7 +31,7 @@ public class AntlerApplication {
     private Console       console;
     private List<Command> commands;
     private UserManager   userManager = new UserManager();
-    private PostPrinter printer = new PostPrinterImpl();
+    private PostPrinter   printer     = new PostPrinterImpl();
 
     /**
      * Create the application and initialise the fields.
@@ -48,7 +48,7 @@ public class AntlerApplication {
         commands.add(new FollowCommand(this));
         commands.add(new WallCommand(this));
     }
-    
+
     public AntlerApplication(Console console, PostPrinter printer) {
         this(console);
         this.printer = printer;
@@ -67,7 +67,7 @@ public class AntlerApplication {
                     try {
                         command.execute(input);
                     } catch (CommandSyntaxException e) {
-                        //Suppress this exception
+                        // Suppress this exception
                     } catch (CommandException e) {
                         getPrinter().printException(e);
                     }
@@ -75,14 +75,14 @@ public class AntlerApplication {
             }
         }
     }
-    
+
     /**
      * @return {@link UserManager} Containing the users for this application
      */
     public UserManager getUserManager() {
         return userManager;
     }
-    
+
     /**
      * @return {@link PostPrinterImpl} To print to the console
      */

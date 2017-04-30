@@ -13,7 +13,7 @@ public class PostImpl implements Post {
 
     public static final String ERROR_CREATED_DATE_NULL      = "Argument createdDate must not be null";
     public static final String ERROR_CREATED_DATE_IN_FUTURE = "Argument createdDate cannot be in the future";
-    public static final String ERROR_USER_NULL = "Argument user cannot must not be null";
+    public static final String ERROR_USER_NULL              = "Argument user cannot must not be null";
     public static final String ERROR_MESSAGE_NULL_OR_EMPTY  = "Argument message must not be null or empty";
 
     private Instant            createdDate;
@@ -44,7 +44,9 @@ public class PostImpl implements Post {
         this.message = message.trim();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see tech.antonyoneill.antler.entity.Post#getMessage()
      */
     @Override
@@ -61,7 +63,9 @@ public class PostImpl implements Post {
         return message;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see tech.antonyoneill.antler.entity.Post#getAuthor()
      */
     @Override
@@ -69,8 +73,11 @@ public class PostImpl implements Post {
         return author;
     }
 
-    /* (non-Javadoc)
-     * @see tech.antonyoneill.antler.entity.HasCreatedInstant#getCreatedInstant()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * tech.antonyoneill.antler.entity.HasCreatedInstant#getCreatedInstant()
      */
     @Override
     public Instant getCreatedInstant() {

@@ -15,12 +15,12 @@ import tech.antonyoneill.antler.utils.ReverseInstantComparator;
 public class WallCommand implements Command {
 
     private AntlerApplication app;
-    private Pattern pattern = Pattern.compile("([^\\s]+) wall");
-    
+    private Pattern           pattern = Pattern.compile("([^\\s]+) wall");
+
     public WallCommand(AntlerApplication app) {
         this.app = app;
     }
-    
+
     @Override
     public boolean isInputValid(String input) {
         return pattern.matcher(input).matches();
@@ -32,10 +32,10 @@ public class WallCommand implements Command {
         if (!matcher.matches()) {
             throw new CommandSyntaxException(input);
         }
-        
+
         String username = matcher.group(1);
         User user = app.getUserManager().getUser(username);
-        
+
         SortedSet<Post> sortedPosts = new TreeSet<>(new ReverseInstantComparator());
         sortedPosts.addAll(user.getTimeline());
         user.getFollows().forEach((followedUser) -> {
@@ -43,6 +43,5 @@ public class WallCommand implements Command {
         });
         app.getPrinter().printPosts(sortedPosts);
     }
-
 
 }

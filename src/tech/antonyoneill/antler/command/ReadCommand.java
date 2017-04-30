@@ -11,12 +11,12 @@ import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 public class ReadCommand implements Command {
 
     private AntlerApplication app;
-    private Pattern pattern = Pattern.compile("([^\\s]+)");
-    
+    private Pattern           pattern = Pattern.compile("([^\\s]+)");
+
     public ReadCommand(AntlerApplication app) {
         this.app = app;
     }
-    
+
     @Override
     public boolean isInputValid(String input) {
         return pattern.matcher(input).matches();
@@ -28,7 +28,7 @@ public class ReadCommand implements Command {
         if (!matcher.matches()) {
             throw new CommandSyntaxException(input);
         }
-        
+
         String username = matcher.group(0);
         User user = app.getUserManager().getUser(username);
 

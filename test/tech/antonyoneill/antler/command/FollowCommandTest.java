@@ -42,7 +42,7 @@ public class FollowCommandTest extends CommandTest {
                 command.isInputValid("single-user follows single-user"));
         assertFalse("Declines follows input with spaces wall", command.isInputValid("some space follows some space"));
     }
-    
+
     @Test
     public void testExecutionWithInvalidInput() throws CommandException {
         expectedEx.expect(CommandSyntaxException.class);
@@ -88,7 +88,7 @@ public class FollowCommandTest extends CommandTest {
 
         expectedEx.expect(UnableToFindUserException.class);
         expectedEx.expectMessage("Unable to find user [unknown]");
-        
+
         command.execute("one follows unknown");
     }
 
@@ -98,7 +98,7 @@ public class FollowCommandTest extends CommandTest {
 
         expectedEx.expect(UnableToFindUserException.class);
         expectedEx.expectMessage("Unable to find user [unknown]");
-        
+
         command.execute("unknown follows one");
     }
 }

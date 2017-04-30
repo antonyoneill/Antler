@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class TimeUtil {
-    
+
     private static final String ERROR_THEN_IS_NULL = "Argument then cannot be null";
 
     /**
@@ -17,7 +17,7 @@ public class TimeUtil {
         if (then == null) {
             throw new IllegalArgumentException(ERROR_THEN_IS_NULL);
         }
-        
+
         Duration duration = Duration.between(then, Instant.now());
         long time = 0;
         String unit = "";

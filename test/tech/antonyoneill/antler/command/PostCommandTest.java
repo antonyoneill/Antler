@@ -14,15 +14,14 @@ import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
 import tech.antonyoneill.antler.exceptions.CommandException;
 import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
-import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class PostCommandTest extends CommandTest {
 
-    PostCommand command;
-    
+    PostCommand              command;
+
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
-    
+
     @Before
     public void setup() {
         setupApp();
@@ -37,7 +36,7 @@ public class PostCommandTest extends CommandTest {
         assertFalse("Declines input with spaces in username", command.isInputValid("some space -> message"));
         assertFalse("Declines input without whitespace", command.isInputValid("somespace->message"));
     }
-    
+
     @Test
     public void testExecutionWithInvalidInput() throws CommandException {
         expectedEx.expect(CommandSyntaxException.class);
@@ -50,14 +49,14 @@ public class PostCommandTest extends CommandTest {
         User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);
         assertEquals("User has a message", 1, user.getTimeline().size());
-        
+
         Post post = user.getTimeline().get(0);
         assertEquals("Hello World", post.getMessage());
-        
+
         command.execute("tester -> Hello again");
         post = user.getTimeline().get(1);
         assertEquals("Hello again", post.getMessage());
-        
+
     }
 
     @Test
@@ -66,7 +65,7 @@ public class PostCommandTest extends CommandTest {
         User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);
         assertEquals("User has a message", 1, user.getTimeline().size());
-        
+
         Post post = user.getTimeline().get(0);
         assertEquals("Hello World -> Hurrah", post.getMessage());
     }
