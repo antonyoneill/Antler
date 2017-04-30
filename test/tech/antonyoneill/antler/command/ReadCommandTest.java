@@ -1,8 +1,6 @@
 package tech.antonyoneill.antler.command;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,8 +29,8 @@ public class ReadCommandTest extends CommandTest {
         app.getUserManager().post(user, "Hello World");
         
         command.execute(user.getUsername());
-        assertEquals("tester - Hello World (just now)", outContent.toString().trim());
-        assertEquals("", errContent.toString());
+        assertEquals("tester - Hello World (just now)", getOutContent()[0].trim());
+        assertEquals("", getErrContent()[0]);
     }
     
     @Test

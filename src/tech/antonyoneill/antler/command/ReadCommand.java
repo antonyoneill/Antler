@@ -31,7 +31,7 @@ public class ReadCommand implements Command {
         String username = matcher.group(0);
         User user = app.getUserManager().getUser(username);
 
-        app.printPosts(user.getTimeline());
+        app.getPrinter().printPosts(user.getTimeline());
     }
 
 }

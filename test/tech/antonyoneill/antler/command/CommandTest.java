@@ -1,28 +1,47 @@
 package tech.antonyoneill.antler.command;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import org.junit.After;
-import org.junit.Before;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 import tech.antonyoneill.antler.AntlerApplication;
+import tech.antonyoneill.antler.entity.Post;
+import tech.antonyoneill.antler.tests.StreamTest;
+import tech.antonyoneill.antler.utils.PostPrinter;
+import tech.antonyoneill.antler.utils.PostPrinterImpl;
 
-public class CommandTest {
+public class CommandTest extends StreamTest {
 
-    AntlerApplication                     app        = new AntlerApplication(System.console());
-    protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    protected final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    AntlerApplication app;
+    MockPostPrinter   printer;
 
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
+    public void setupApp() {
+        printer = new MockPostPrinter();
+        app = new AntlerApplication(System.console(), printer);
     }
 
-    @After
-    public void cleanUpStreams() {
-        System.setOut(null);
-        System.setErr(null);
+    class MockPostPrinter implements PostPrinter {
+
+        Collection<Post> posts;
+        Exception        exception;
+
+        @Override
+        public void printPosts(Collection<Post> posts) {
+            this.posts = posts;
+        }
+
+        @Override
+        public void printException(Exception exception) {
+            this.exception = exception;
+        }
+
+        public Post[] getPostsPrinted() {
+            return posts.toArray(new Post[posts.size()]);
+        }
+
+        public Exception getException() {
+            return exception;
+        }
     }
 }

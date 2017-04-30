@@ -40,7 +40,6 @@ public class WallCommand implements Command {
         user.getFollows().forEach((innerUser) -> {
             sortedPosts.addAll(innerUser.getTimeline());
         });
-        app.printPosts(sortedPosts);
     }
 
 

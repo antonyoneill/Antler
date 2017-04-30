@@ -42,4 +42,12 @@ public class PostCommandTest extends CommandTest {
         Post post = user.getTimeline().get(0);
         assertEquals("Hello World -> Hurrah", post.getMessage());
     }
+
+    @Test
+    public void testExecuteAddBlankMessage() throws UnableToFindUserException {
+        command.execute("tester ->  ");
+        User user = app.getUserManager().getUser("tester");
+        assertNotNull("User was created", user);
+        assertEquals("User has no messages", 0, user.getTimeline().size());
+    }
 }

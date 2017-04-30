@@ -14,6 +14,8 @@ import tech.antonyoneill.antler.command.ReadCommand;
 import tech.antonyoneill.antler.command.WallCommand;
 import tech.antonyoneill.antler.utils.TimeUtil;
 import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.utils.PostPrinter;
+import tech.antonyoneill.antler.utils.PostPrinterImpl;
 import tech.antonyoneill.antler.utils.UserManager;
 
 /**
@@ -32,6 +34,7 @@ public class AntlerApplication {
     private Console           console;
     private UserManager   userManager = new UserManager();
     private List<Command>     commands;
+    private PostPrinter printer = new PostPrinterImpl();
 
     /**
      * Create the application and initialise the fields.
@@ -48,6 +51,11 @@ public class AntlerApplication {
         commands.add(new FollowCommand(this));
         commands.add(new WallCommand(this));
     }
+    
+    public AntlerApplication(Console console, PostPrinter printer) {
+        this(console);
+        this.printer = printer;
+    }
 
     /**
      * Run the application! Commands are parsed and executed until an ^C is
@@ -62,25 +70,13 @@ public class AntlerApplication {
                     try {
                         command.execute(input);
                     } catch (CommandException e) {
+                        getPrinter().printException(e);
                     }
                 }
             }
         }
     }
-
-    /**
-     * Outputs the list of posts to System.out
-     * @param posts
-     */
-    public void printPosts(Collection<Post> posts) {
-        posts.forEach((post) -> {
-            System.out.println(String.format("%s - %s (%s)",
-                    post.getAuthor().getUsername(),
-                    post.getMessage(),
-                    TimeUtil.timeDifference(post.getCreatedInstant())));
-        });
-    }
-
+    
     /**
      * @return {@link UserManager} Containing the users for this application
      */
@@ -89,6 +85,9 @@ public class AntlerApplication {
     }
     
     /**
+     * @return {@link PostPrinterImpl} To print to the console
      */
+    public PostPrinter getPrinter() {
+        return printer;
     }
 }
