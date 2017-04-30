@@ -5,13 +5,19 @@ import java.time.Instant;
 
 public class TimeUtil {
     
+    private static final String ERROR_THEN_IS_NULL = "Argument then cannot be null";
+
     /**
      * Calculates a pretty time string to output
      * 
      * @param then
      * @return String
      */
-    public static String timeDifference(Instant then) {
+    public String timeDifference(Instant then) {
+        if (then == null) {
+            throw new IllegalArgumentException(ERROR_THEN_IS_NULL);
+        }
+        
         Duration duration = Duration.between(then, Instant.now());
         long time = 0;
         String unit = "";
