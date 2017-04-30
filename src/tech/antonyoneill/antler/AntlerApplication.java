@@ -12,10 +12,9 @@ import tech.antonyoneill.antler.command.FollowCommand;
 import tech.antonyoneill.antler.command.PostCommand;
 import tech.antonyoneill.antler.command.ReadCommand;
 import tech.antonyoneill.antler.command.WallCommand;
-import tech.antonyoneill.antler.entity.Post;
-import tech.antonyoneill.antler.entity.User;
-import tech.antonyoneill.antler.entity.UserImpl;
 import tech.antonyoneill.antler.utils.TimeUtil;
+import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.utils.UserManager;
 
 /**
  * Antler is a simple Twitter style messaging board.
@@ -31,7 +30,7 @@ import tech.antonyoneill.antler.utils.TimeUtil;
 public class AntlerApplication {
 
     private Console           console;
-    private Map<String, User> users;
+    private UserManager   userManager = new UserManager();
     private List<Command>     commands;
 
     /**
@@ -41,7 +40,7 @@ public class AntlerApplication {
      *            The system console to read from
      */
     public AntlerApplication(Console console) {
-        this.users = new HashMap<>();
+
         this.console = console;
         commands = new ArrayList<>();
         commands.add(new ReadCommand(this));
@@ -60,7 +59,10 @@ public class AntlerApplication {
 
             for (Command command : commands) {
                 if (command.isInputValid(input)) {
-                    command.execute(input);
+                    try {
+                        command.execute(input);
+                    } catch (CommandException e) {
+                    }
                 }
             }
         }
@@ -80,32 +82,13 @@ public class AntlerApplication {
     }
 
     /**
-     * Get a user from the system. Optionally create it if it doesn't exist
-     * @param username
-     * @param createIfNull Whether to create the user or not if it doesn't exist
-     * @return The user, or null if doesn't exist and not configured to create
+     * @return {@link UserManager} Containing the users for this application
      */
-    public User getUser(String username, boolean createIfNull) {
-        User user = users.get(username);
-        if (user == null) {
-            if (createIfNull) {
-                user = addUser(username);
-            } else {
-                System.err.println(String.format("The user [%s] doesn't exist.", username));
-            }
-        }
-        return user;
+    public UserManager getUserManager() {
+        return userManager;
     }
-
+    
     /**
-     * Add a new user to the application
-     * 
-     * @param username
-     * @return The new user
      */
-    public User addUser(String username) {
-        User user = new UserImpl(username);
-        users.put(username, user);
-        return user;
     }
 }

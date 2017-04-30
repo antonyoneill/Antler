@@ -25,19 +25,5 @@ public interface User {
      * @return the Users this User follows
      */
     public Set<User> getFollows();
-
-    /**
-     * Follow a new user
-     * 
-     * @param user User to follow
-     */
-    public void follow(User user);
-
-    /**
-     * Associate a post with the user
-     * 
-     * @param post
-     */
-    public void post(Post post);
-
+    
 }

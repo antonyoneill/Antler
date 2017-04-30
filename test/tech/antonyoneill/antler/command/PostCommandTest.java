@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class PostCommandTest extends CommandTest {
 
@@ -21,9 +22,9 @@ public class PostCommandTest extends CommandTest {
     }
 
     @Test
-    public void testExecuteAddMessage() {
+    public void testExecuteAddMessage() throws UnableToFindUserException {
         command.execute("tester -> Hello World");
-        User user = app.getUser("tester", false);
+        User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);
         assertEquals("User has a message", 1, user.getTimeline().size());
         
@@ -32,9 +33,9 @@ public class PostCommandTest extends CommandTest {
     }
 
     @Test
-    public void testExecuteAddMessageContainingArrow() {
+    public void testExecuteAddMessageContainingArrow() throws UnableToFindUserException {
         command.execute("tester -> Hello World -> Hurrah");
-        User user = app.getUser("tester", false);
+        User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);
         assertEquals("User has a message", 1, user.getTimeline().size());
         

@@ -4,6 +4,6 @@ public interface Command {
 
     public boolean isInputValid(String input);
     
-    public void execute(String input);
+    public void execute(String input) throws CommandException;
     
 }

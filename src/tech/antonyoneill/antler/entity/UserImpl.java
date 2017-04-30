@@ -68,24 +68,7 @@ public class UserImpl implements User {
 		return follows;
 	}
 	
-	/* (non-Javadoc)
-     * @see tech.antonyoneill.antler.entity.User#follow(tech.antonyoneill.antler.entity.UserImpl)
      */
-	@Override
-    public void follow(User user) {
-	    if (user.equals(this)) {
-	        return;
-	    }
-		this.follows.add(user);
-	}
-	
-	/* (non-Javadoc)
-     * @see tech.antonyoneill.antler.entity.User#post(tech.antonyoneill.antler.entity.PostImpl)
-     */
-	@Override
-    public void post(Post post) {
-		this.timeline.add(post);
-	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

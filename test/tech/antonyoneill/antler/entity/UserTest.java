@@ -1,15 +1,10 @@
 package tech.antonyoneill.antler.entity;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-import java.time.Instant;
-
+import org.junit.Rule;
 import org.junit.Test;
-
-import tech.antonyoneill.antler.entity.PostImpl;
-import tech.antonyoneill.antler.entity.UserImpl;
+import org.junit.rules.ExpectedException;
 
 public class UserTest {
 
@@ -65,32 +60,36 @@ public class UserTest {
 		testForException("username is null", null, UserImpl.ERROR_USERNAME_NULL_OR_EMPTY);
 	}
 
-	@Test
-	public void testCannotHaveSpaceInUsername() {
-		testForException("username contains a space", " ", UserImpl.ERROR_USERNAME_CONTAINS_SPACE);
-	}
+    @Test
+    public void testCanBeCreated() {
+        User user = new UserImpl("antonyoneill");
+        assertEquals("Username is accessible", "antonyoneill", user.getUsername());
+        assertEquals("The user is following no one", 0, user.getFollows().size());
+        assertEquals("The user has no posts", 0, user.getTimeline().size());
+    }
 
-	@Test
-	public void testCannotHaveEmptyUsername() {
-		testForException("username is empty", "", UserImpl.ERROR_USERNAME_NULL_OR_EMPTY);
-	}
+    @Test
+    public void testCannotHaveNullUsername() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(UserImpl.ERROR_USERNAME_NULL_OR_EMPTY);
+        expectedEx.reportMissingExceptionWithMessage("Expected exception with null username");
+        new UserImpl(null);
+    }
 
-	private User testForException(String reason, String username, String exceptionMessage) {
-		Exception exception = null;
-		User user = null;
-		try {
-			user = new UserImpl(username);
-		} catch (Exception e) {
-			exception = e;
-		}
-		if (exceptionMessage == null) {
-			assertNull("An exception should not be thrown when " + reason, exception);
-		} else {
-			assertTrue("An IllegalArugmentException was thrown when " + reason,
-					exception instanceof IllegalArgumentException);
-			assertEquals("The correct message is returned when " + reason, exceptionMessage, exception.getMessage());
-		}
-		return user;
-	}
+    @Test
+    public void testCannotHaveSpaceInUsername() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(UserImpl.ERROR_USERNAME_CONTAINS_SPACE);
+        expectedEx.reportMissingExceptionWithMessage("Expected exception with space in username");
+        new UserImpl(" ");
+    }
+
+    @Test
+    public void testCannotHaveEmptyUsername() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(UserImpl.ERROR_USERNAME_NULL_OR_EMPTY);
+        expectedEx.reportMissingExceptionWithMessage("Expected exception with empty username");
+        new UserImpl("");
+    }
 
 }

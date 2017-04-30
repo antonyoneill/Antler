@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import tech.antonyoneill.antler.AntlerApplication;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
+import tech.antonyoneill.antler.utils.UserManager;
 
 public class FollowCommand implements Command {
 
@@ -21,7 +23,7 @@ public class FollowCommand implements Command {
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws UnableToFindUserException {
         Matcher matcher = pattern.matcher(input);
         if (!matcher.matches()) {
             return;
@@ -30,14 +32,12 @@ public class FollowCommand implements Command {
         String leftUsername = matcher.group(1);
         String rightUsername = matcher.group(2);
 
-        User leftUser = app.getUser(leftUsername, false);
-        User rightUser = app.getUser(rightUsername, false);
+        UserManager userManager = app.getUserManager();
+        
+        User leftUser = userManager.getUser(leftUsername);
+        User rightUser = userManager.getUser(rightUsername);
 
-        if (leftUser == null || rightUser == null) {
-            return;
-        }
-
-        leftUser.follow(rightUser);
+        userManager.follow(leftUser, rightUser);
     }
 
 }

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import tech.antonyoneill.antler.AntlerApplication;
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 import tech.antonyoneill.antler.utils.ReverseInstantComparator;
 
 public class WallCommand implements Command {
@@ -25,17 +26,14 @@ public class WallCommand implements Command {
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws UnableToFindUserException {
         Matcher matcher = pattern.matcher(input);
         if (!matcher.matches()) {
             return;
         }
         
         String username = matcher.group(1);
-        User user = app.getUser(username, false);
-        if (user == null) {
-            return;
-        }
+        User user = app.getUserManager().getUser(username);
         
         SortedSet<Post> sortedPosts = new TreeSet<>(new ReverseInstantComparator());
         sortedPosts.addAll(user.getTimeline());
