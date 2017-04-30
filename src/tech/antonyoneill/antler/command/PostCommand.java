@@ -39,7 +39,11 @@ public class PostCommand implements Command {
 
         String message = matcher.group(2);
 
-        app.getUserManager().post(user, message);
+        try {
+            app.getUserManager().post(user, message);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
     }
 
 }
