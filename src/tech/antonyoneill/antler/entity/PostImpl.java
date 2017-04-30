@@ -25,20 +25,19 @@ public class PostImpl implements Post {
      * @param message
      */
     public PostImpl(Instant createdDate, User user, String message) {
-        message = message.trim();
         if (createdDate == null) {
             throw new IllegalArgumentException(ERROR_CREATED_DATE_NULL);
         }
         if (createdDate.isAfter(Instant.now())) {
             throw new IllegalArgumentException(ERROR_CREATED_DATE_IN_FUTURE);
         }
-        if (message == null || message.isEmpty()) {
+        if (message == null || message.trim().isEmpty()) {
             throw new IllegalArgumentException(ERROR_MESSAGE_NULL_OR_EMPTY);
         }
 
         this.createdDate = createdDate;
         this.author = user;
-        this.message = message;
+        this.message = message.trim();
     }
 
     /* (non-Javadoc)
