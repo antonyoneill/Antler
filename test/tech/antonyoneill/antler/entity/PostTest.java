@@ -22,7 +22,7 @@ public class PostTest {
         Post post = new PostImpl(createdDate, user, "Hello");
         assertEquals("The message is accessible", "Hello", post.getMessage());
         assertEquals("The toString method contains the date",
-                "Hello (" + createdDate.toString() + ")",
+                "Hello",
                 post.toString());
     }
 
