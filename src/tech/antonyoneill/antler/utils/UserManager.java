@@ -48,6 +48,12 @@ public class UserManager {
         return user;
     }
     
+    /**
+     * Make a user follow another user. If the users are equal nothing will happen.
+     * 
+     * @param follower The {@link User} who wants to follow
+     * @param user The {@link User} to be followed
+     */
     public void follow(User follower, User user) {
         if (follower.equals(user)) {
             return;
@@ -55,6 +61,12 @@ public class UserManager {
         follower.getFollows().add(user);
     }
     
+    /**
+     * Posts a message on a users timeline
+     * 
+     * @param user
+     * @param message
+     */
     public void post(User user, String message) {
         Post post = new PostImpl(Instant.now(), user, message);
         user.getTimeline().add(post);
