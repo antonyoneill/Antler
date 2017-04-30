@@ -1,6 +1,8 @@
 package tech.antonyoneill.antler.entity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,6 +43,26 @@ public class UserTest {
         expectedEx.expectMessage(UserImpl.ERROR_USERNAME_NULL_OR_EMPTY);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with empty username");
         new UserImpl("");
+    }
+    
+    @Test
+    public void testEqualityEqual() {
+        User one = new UserImpl("one");
+        assertTrue(one.equals(one));
+    }
+    
+    @Test
+    public void testEqualityNotEqual() {
+        User one = new UserImpl("one");
+        User two = new UserImpl("two");
+        assertFalse(one.equals(two));
+    }
+    
+    @Test
+    public void testEqualityNotUser() {
+        User one = new UserImpl("one");
+        String two = "test";
+        assertFalse(one.equals(two));
     }
 
 }
