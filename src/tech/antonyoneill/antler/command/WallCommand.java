@@ -37,9 +37,10 @@ public class WallCommand implements Command {
         
         SortedSet<Post> sortedPosts = new TreeSet<>(new ReverseInstantComparator());
         sortedPosts.addAll(user.getTimeline());
-        user.getFollows().forEach((innerUser) -> {
-            sortedPosts.addAll(innerUser.getTimeline());
+        user.getFollows().forEach((followedUser) -> {
+            sortedPosts.addAll(followedUser.getTimeline());
         });
+        app.getPrinter().printPosts(sortedPosts);
     }
 
 
