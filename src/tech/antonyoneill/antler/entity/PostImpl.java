@@ -25,6 +25,7 @@ public class PostImpl implements Post {
      * @param message
      */
     public PostImpl(Instant createdDate, User user, String message) {
+        message = message.trim();
         if (createdDate == null) {
             throw new IllegalArgumentException(ERROR_CREATED_DATE_NULL);
         }
@@ -51,12 +52,10 @@ public class PostImpl implements Post {
     /**
      * This method will return a string representation of the Post.
      * 
-     * Note: The time will be in ISO8601 format, not a '5 seconds ago' style.
-     * 
      * @return a String representation of the post
      */
     public String toString() {
-        return String.format("%s (%s)", message, createdDate.toString());
+        return message;
     }
 
     /* (non-Javadoc)
