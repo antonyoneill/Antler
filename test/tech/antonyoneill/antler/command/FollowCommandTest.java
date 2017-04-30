@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 /**
@@ -40,9 +42,15 @@ public class FollowCommandTest extends CommandTest {
                 command.isInputValid("single-user follows single-user"));
         assertFalse("Declines follows input with spaces wall", command.isInputValid("some space follows some space"));
     }
+    
+    @Test
+    public void testExecutionWithInvalidInput() throws CommandException {
+        expectedEx.expect(CommandSyntaxException.class);
+        command.execute("invalid input");
+    }
 
     @Test
-    public void testUserCanFollowOthers() throws UnableToFindUserException {
+    public void testUserCanFollowOthers() throws CommandException {
         User userOne = app.getUserManager().addUser("one");
         User userTwo = app.getUserManager().addUser("two");
         User userThree = app.getUserManager().addUser("three");
@@ -64,7 +72,7 @@ public class FollowCommandTest extends CommandTest {
     }
 
     @Test
-    public void testUserCannotFollowSelf() throws UnableToFindUserException {
+    public void testUserCannotFollowSelf() throws CommandException {
         User userOne = app.getUserManager().addUser("one");
 
         assertEquals(0, userOne.getFollows().size());
@@ -75,7 +83,7 @@ public class FollowCommandTest extends CommandTest {
     }
 
     @Test
-    public void testUserTriesToFollowUnknown() throws UnableToFindUserException {
+    public void testUserTriesToFollowUnknown() throws CommandException {
         app.getUserManager().addUser("one");
 
         expectedEx.expect(UnableToFindUserException.class);
@@ -85,7 +93,7 @@ public class FollowCommandTest extends CommandTest {
     }
 
     @Test
-    public void testUnknownTriesToFollowUser() throws UnableToFindUserException {
+    public void testUnknownTriesToFollowUser() throws CommandException {
         app.getUserManager().addUser("one");
 
         expectedEx.expect(UnableToFindUserException.class);

@@ -11,6 +11,8 @@ import org.junit.rules.ExpectedException;
 
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class ReadCommandTest extends CommandTest {
@@ -31,9 +33,15 @@ public class ReadCommandTest extends CommandTest {
         assertTrue("Accepts single word with dashes", command.isInputValid("single-user"));
         assertFalse("Declines input with spaces", command.isInputValid("some space"));
     }
+    
+    @Test
+    public void testExecutionWithInvalidInput() throws CommandException {
+        expectedEx.expect(CommandSyntaxException.class);
+        command.execute("invalid input");
+    }
 
     @Test
-    public void testExecuteUserExists() throws UnableToFindUserException {
+    public void testExecuteUserExists() throws CommandException {
         User user = app.getUserManager().addUser("tester");
         app.getUserManager().post(user, "Hello World");
         
@@ -45,7 +53,7 @@ public class ReadCommandTest extends CommandTest {
     }
     
     @Test
-    public void testExecuteUserNoExists() throws UnableToFindUserException {
+    public void testExecuteUserNoExists() throws CommandException {
         expectedEx.expect(UnableToFindUserException.class);
         command.execute("missing");
     }

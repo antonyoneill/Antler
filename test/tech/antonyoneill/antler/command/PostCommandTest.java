@@ -6,15 +6,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class PostCommandTest extends CommandTest {
 
     PostCommand command;
+    
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
     
     @Before
     public void setup() {
@@ -30,9 +37,15 @@ public class PostCommandTest extends CommandTest {
         assertFalse("Declines input with spaces in username", command.isInputValid("some space -> message"));
         assertFalse("Declines input without whitespace", command.isInputValid("somespace->message"));
     }
+    
+    @Test
+    public void testExecutionWithInvalidInput() throws CommandException {
+        expectedEx.expect(CommandSyntaxException.class);
+        command.execute("invalid input");
+    }
 
     @Test
-    public void testExecuteAddMessage() throws UnableToFindUserException {
+    public void testExecuteAddMessage() throws CommandException {
         command.execute("tester -> Hello World");
         User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);
@@ -40,10 +53,15 @@ public class PostCommandTest extends CommandTest {
         
         Post post = user.getTimeline().get(0);
         assertEquals("Hello World", post.getMessage());
+        
+        command.execute("tester -> Hello again");
+        post = user.getTimeline().get(1);
+        assertEquals("Hello again", post.getMessage());
+        
     }
 
     @Test
-    public void testExecuteAddMessageContainingArrow() throws UnableToFindUserException {
+    public void testExecuteAddMessageContainingArrow() throws CommandException {
         command.execute("tester -> Hello World -> Hurrah");
         User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);
@@ -54,7 +72,7 @@ public class PostCommandTest extends CommandTest {
     }
 
     @Test
-    public void testExecuteAddBlankMessage() throws UnableToFindUserException {
+    public void testExecuteAddBlankMessage() throws CommandException {
         command.execute("tester ->  ");
         User user = app.getUserManager().getUser("tester");
         assertNotNull("User was created", user);

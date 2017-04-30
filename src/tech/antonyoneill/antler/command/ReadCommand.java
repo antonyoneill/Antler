@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import tech.antonyoneill.antler.AntlerApplication;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class ReadCommand implements Command {
@@ -22,10 +23,10 @@ public class ReadCommand implements Command {
     }
 
     @Override
-    public void execute(String input) throws UnableToFindUserException {
+    public void execute(String input) throws UnableToFindUserException, CommandSyntaxException {
         Matcher matcher = pattern.matcher(input);
         if (!matcher.matches()) {
-            return;
+            throw new CommandSyntaxException(input);
         }
         
         String username = matcher.group(0);

@@ -11,6 +11,8 @@ import org.junit.rules.ExpectedException;
 
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
+import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 import tech.antonyoneill.antler.utils.UserManager;
 
@@ -39,9 +41,15 @@ public class WallCommandTest extends CommandTest {
         assertTrue("Accepts single word with dashes wall", command.isInputValid("single-user wall"));
         assertFalse("Declines input with spaces wall", command.isInputValid("some space wall"));
     }
+    
+    @Test
+    public void testExecutionWithInvalidInput() throws CommandException {
+        expectedEx.expect(CommandSyntaxException.class);
+        command.execute("invalid input");
+    }
 
     @Test
-    public void testWallShowsOwnPosts() throws UnableToFindUserException, InterruptedException {
+    public void testWallShowsOwnPosts() throws CommandException, InterruptedException {
         User user = app.getUserManager().addUser("tester");
         app.getUserManager().post(user, "post 1");
         Thread.sleep(1);
@@ -58,7 +66,7 @@ public class WallCommandTest extends CommandTest {
     }
     
     @Test
-    public void testWallShowsFollowPosts() throws UnableToFindUserException, InterruptedException {
+    public void testWallShowsFollowPosts() throws CommandException, InterruptedException {
         UserManager userManager = app.getUserManager();
         User user = userManager.addUser("follower");
         User target = userManager.addUser("target");

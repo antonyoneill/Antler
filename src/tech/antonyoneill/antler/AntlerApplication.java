@@ -10,6 +10,7 @@ import tech.antonyoneill.antler.command.PostCommand;
 import tech.antonyoneill.antler.command.ReadCommand;
 import tech.antonyoneill.antler.command.WallCommand;
 import tech.antonyoneill.antler.exceptions.CommandException;
+import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.utils.PostPrinter;
 import tech.antonyoneill.antler.utils.PostPrinterImpl;
 import tech.antonyoneill.antler.utils.UserManager;
@@ -65,6 +66,8 @@ public class AntlerApplication {
                 if (command.isInputValid(input)) {
                     try {
                         command.execute(input);
+                    } catch (CommandSyntaxException e) {
+                        //Suppress this exception
                     } catch (CommandException e) {
                         getPrinter().printException(e);
                     }
