@@ -15,7 +15,12 @@ import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class ReadCommandTest extends CommandTest {
 
-    ReadCommand command = new ReadCommand(app);
+    ReadCommand command;
+    @Before
+    public void setup() {
+        setupApp();
+        command = new ReadCommand(app);
+    }
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 
@@ -33,7 +38,9 @@ public class ReadCommandTest extends CommandTest {
         app.getUserManager().post(user, "Hello World");
         
         command.execute(user.getUsername());
-        assertEquals("tester - Hello World (just now)", getOutContent()[0].trim());
+        
+        Post[] printedPosts = printer.getPostsPrinted();
+        assertEquals("Hello World", printedPosts[0].toString());
         assertEquals("", getErrContent()[0]);
     }
     

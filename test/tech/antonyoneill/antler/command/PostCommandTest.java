@@ -14,7 +14,13 @@ import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 public class PostCommandTest extends CommandTest {
 
-    PostCommand command = new PostCommand(app);
+    PostCommand command;
+    
+    @Before
+    public void setup() {
+        setupApp();
+        command = new PostCommand(app);
+    }
 
     @Test
     public void testInput() {
