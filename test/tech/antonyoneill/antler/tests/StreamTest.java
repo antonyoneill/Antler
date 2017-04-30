@@ -2,13 +2,10 @@ package tech.antonyoneill.antler.tests;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.Instant;
 import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.Before;
-
-import tech.antonyoneill.antler.utils.TimeUtil;
 
 public class StreamTest {
 

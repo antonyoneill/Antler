@@ -1,22 +1,17 @@
 package tech.antonyoneill.antler.command;
 
-import static org.junit.Assert.*;
-
-import java.util.Collection;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import tech.antonyoneill.antler.AntlerApplication;
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
-import tech.antonyoneill.antler.entity.UserImpl;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
-import tech.antonyoneill.antler.utils.PostPrinter;
 import tech.antonyoneill.antler.utils.UserManager;
 
 /**

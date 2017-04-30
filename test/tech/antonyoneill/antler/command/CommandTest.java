@@ -1,15 +1,11 @@
 package tech.antonyoneill.antler.command;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 import tech.antonyoneill.antler.AntlerApplication;
 import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.tests.StreamTest;
 import tech.antonyoneill.antler.utils.PostPrinter;
-import tech.antonyoneill.antler.utils.PostPrinterImpl;
 
 public class CommandTest extends StreamTest {
 

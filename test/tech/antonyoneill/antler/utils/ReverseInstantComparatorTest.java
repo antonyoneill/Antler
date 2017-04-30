@@ -1,13 +1,12 @@
 package tech.antonyoneill.antler.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.Instant;
 
 import org.junit.Test;
 
 import tech.antonyoneill.antler.entity.HasCreatedInstant;
-import tech.antonyoneill.antler.utils.ReverseInstantComparator;
 
 public class ReverseInstantComparatorTest {
 
