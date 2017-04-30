@@ -68,8 +68,6 @@ public class UserImpl implements User {
 		return follows;
 	}
 	
-     */
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
