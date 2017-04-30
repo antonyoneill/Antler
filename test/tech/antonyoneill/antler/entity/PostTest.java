@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class PostTest {
-
     
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
@@ -21,9 +20,7 @@ public class PostTest {
         Instant createdDate = Instant.now();
         Post post = new PostImpl(createdDate, user, "Hello");
         assertEquals("The message is accessible", "Hello", post.getMessage());
-        assertEquals("The toString method contains the date",
-                "Hello",
-                post.toString());
+        assertEquals("The toString method contains the date", "Hello", post.toString());
     }
 
     @Test
@@ -43,6 +40,14 @@ public class PostTest {
     }
 
     @Test
+    public void testNullUser() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(PostImpl.ERROR_USER_NULL);
+        expectedEx.reportMissingExceptionWithMessage("Expected exception with null user");
+        new PostImpl(Instant.now(), null, "Hello");
+    }
+
+    @Test
     public void testNullMessage() {
         expectedEx.expect(IllegalArgumentException.class);
         expectedEx.expectMessage(PostImpl.ERROR_MESSAGE_NULL_OR_EMPTY);
@@ -51,10 +56,10 @@ public class PostTest {
     }
 
     @Test
-    public void testNullEmpty() {
+    public void testEmptyMessage() {
         expectedEx.expect(IllegalArgumentException.class);
         expectedEx.expectMessage(PostImpl.ERROR_MESSAGE_NULL_OR_EMPTY);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with empty message");
-        new PostImpl(Instant.now(), null, "");
+        new PostImpl(Instant.now(), user, "");
     }
 }
