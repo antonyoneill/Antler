@@ -56,10 +56,6 @@ public class PostPrinterImpl implements PostPrinter {
      */
     @Override
     public void printException(Exception exception) {
-        System.err.println(exception.toString());
-    }
-
-    private boolean showTimeDifference() {
-        return true;
+        System.err.println(exception.getMessage());
     }
 }
