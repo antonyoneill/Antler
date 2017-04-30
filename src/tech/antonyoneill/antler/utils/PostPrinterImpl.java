@@ -1,7 +1,6 @@
 package tech.antonyoneill.antler.utils;
 
 import java.util.Collection;
-import java.util.List;
 
 import tech.antonyoneill.antler.entity.Post;
 

@@ -2,17 +2,13 @@ package tech.antonyoneill.antler;
 
 import java.io.Console;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import tech.antonyoneill.antler.command.Command;
 import tech.antonyoneill.antler.command.FollowCommand;
 import tech.antonyoneill.antler.command.PostCommand;
 import tech.antonyoneill.antler.command.ReadCommand;
 import tech.antonyoneill.antler.command.WallCommand;
-import tech.antonyoneill.antler.utils.TimeUtil;
 import tech.antonyoneill.antler.exceptions.CommandException;
 import tech.antonyoneill.antler.utils.PostPrinter;
 import tech.antonyoneill.antler.utils.PostPrinterImpl;
@@ -31,9 +27,9 @@ import tech.antonyoneill.antler.utils.UserManager;
  */
 public class AntlerApplication {
 
-    private Console           console;
+    private Console       console;
+    private List<Command> commands;
     private UserManager   userManager = new UserManager();
-    private List<Command>     commands;
     private PostPrinter printer = new PostPrinterImpl();
 
     /**
@@ -43,8 +39,8 @@ public class AntlerApplication {
      *            The system console to read from
      */
     public AntlerApplication(Console console) {
-
         this.console = console;
+
         commands = new ArrayList<>();
         commands.add(new ReadCommand(this));
         commands.add(new PostCommand(this));
