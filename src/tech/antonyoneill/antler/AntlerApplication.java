@@ -18,11 +18,11 @@ import tech.antonyoneill.antler.entity.UserImpl;
 import tech.antonyoneill.antler.utils.TimeUtil;
 
 /**
- * The main application which provides a Twitter style messaging board.
+ * Antler is a simple Twitter style messaging board.
  * 
  * It assumes that the users all use the same console, and that once the
  * application has been closed the users will not want to access the messages
- * again. That is to say, there's no persistence, concurrency protection, or
+ * again. That is to say there's no persistence, concurrency protection, or
  * networking.
  * 
  * @author @antonyoneill
@@ -35,9 +35,10 @@ public class AntlerApplication {
     private List<Command>     commands;
 
     /**
-     * Create the application and initialise the fields
+     * Create the application and initialise the fields.
      * 
      * @param console
+     *            The system console to read from
      */
     public AntlerApplication(Console console) {
         this.users = new HashMap<>();
@@ -51,7 +52,7 @@ public class AntlerApplication {
 
     /**
      * Run the application! Commands are parsed and executed until an ^C is
-     * passed into the input
+     * passed into the input.
      */
     public void run() {
         while (true) {

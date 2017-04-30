@@ -3,8 +3,9 @@ package tech.antonyoneill.antler;
 import java.io.Console;
 
 /**
+ * This is the entry point for Antler.
+ * 
  * @author @antonyoneill
- *
  */
 public class Antler {
 
