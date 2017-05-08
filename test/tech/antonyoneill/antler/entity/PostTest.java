@@ -13,12 +13,12 @@ public class PostTest {
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
 
-    User                     user       = new UserImpl("Tester");
+    User                     user       = new User("Tester");
 
     @Test
     public void testPostCreation() {
         Instant createdDate = Instant.now();
-        Post post = new PostImpl(createdDate, user, "Hello");
+        Post post = new Post(createdDate, user, "Hello");
         assertEquals("The message is accessible", "Hello", post.getMessage());
         assertEquals("The toString method contains the date", "Hello", post.toString());
     }
@@ -26,40 +26,40 @@ public class PostTest {
     @Test
     public void testNullCreatedDate() {
         expectedEx.expect(IllegalArgumentException.class);
-        expectedEx.expectMessage(PostImpl.ERROR_CREATED_DATE_NULL);
+        expectedEx.expectMessage(Post.ERROR_CREATED_DATE_NULL);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with null createdDate");
-        new PostImpl(null, user, "Hello");
+        new Post(null, user, "Hello");
     }
 
     @Test
     public void testFutureCreatedDate() {
         expectedEx.expect(IllegalArgumentException.class);
-        expectedEx.expectMessage(PostImpl.ERROR_CREATED_DATE_IN_FUTURE);
+        expectedEx.expectMessage(Post.ERROR_CREATED_DATE_IN_FUTURE);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with future createdDate");
-        new PostImpl(Instant.now().plusSeconds(60), user, "Hello");
+        new Post(Instant.now().plusSeconds(60), user, "Hello");
     }
 
     @Test
     public void testNullUser() {
         expectedEx.expect(IllegalArgumentException.class);
-        expectedEx.expectMessage(PostImpl.ERROR_USER_NULL);
+        expectedEx.expectMessage(Post.ERROR_USER_NULL);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with null user");
-        new PostImpl(Instant.now(), null, "Hello");
+        new Post(Instant.now(), null, "Hello");
     }
 
     @Test
     public void testNullMessage() {
         expectedEx.expect(IllegalArgumentException.class);
-        expectedEx.expectMessage(PostImpl.ERROR_MESSAGE_NULL_OR_EMPTY);
+        expectedEx.expectMessage(Post.ERROR_MESSAGE_NULL_OR_EMPTY);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with null message");
-        new PostImpl(Instant.now(), user, null);
+        new Post(Instant.now(), user, null);
     }
 
     @Test
     public void testEmptyMessage() {
         expectedEx.expect(IllegalArgumentException.class);
-        expectedEx.expectMessage(PostImpl.ERROR_MESSAGE_NULL_OR_EMPTY);
+        expectedEx.expectMessage(Post.ERROR_MESSAGE_NULL_OR_EMPTY);
         expectedEx.reportMissingExceptionWithMessage("Expected exception with empty message");
-        new PostImpl(Instant.now(), user, "");
+        new Post(Instant.now(), user, "");
     }
 }

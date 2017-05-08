@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 
-public class StreamTest {
+public class StreamBase {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();

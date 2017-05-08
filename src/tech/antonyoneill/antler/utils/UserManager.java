@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tech.antonyoneill.antler.entity.Post;
-import tech.antonyoneill.antler.entity.PostImpl;
+import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
-import tech.antonyoneill.antler.entity.UserImpl;
+import tech.antonyoneill.antler.entity.User;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
 /**
@@ -44,7 +44,7 @@ public class UserManager {
      * @return The new user
      */
     public User addUser(String username) {
-        User user = new UserImpl(username);
+        User user = new User(username);
         users.put(username, user);
         return user;
     }
@@ -72,7 +72,7 @@ public class UserManager {
      * @param message
      */
     public void post(User user, String message) {
-        Post post = new PostImpl(Instant.now(), user, message);
+        Post post = new Post(Instant.now(), user, message);
         user.getTimeline().add(post);
     }
 }

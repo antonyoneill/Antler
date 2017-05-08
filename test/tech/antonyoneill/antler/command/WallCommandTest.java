@@ -21,7 +21,7 @@ import tech.antonyoneill.antler.utils.UserManager;
  * @author @antonyoneill
  *
  */
-public class WallCommandTest extends CommandTest {
+public class WallCommandTest extends CommandBase {
 
     WallCommand command;
 

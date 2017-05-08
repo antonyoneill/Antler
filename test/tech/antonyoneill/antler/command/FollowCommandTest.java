@@ -20,7 +20,7 @@ import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
  * @author @antonyoneill
  *
  */
-public class FollowCommandTest extends CommandTest {
+public class FollowCommandTest extends CommandBase {
 
     FollowCommand command;
 

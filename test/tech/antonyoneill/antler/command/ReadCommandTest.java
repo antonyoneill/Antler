@@ -15,7 +15,7 @@ import tech.antonyoneill.antler.exceptions.CommandException;
 import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 
-public class ReadCommandTest extends CommandTest {
+public class ReadCommandTest extends CommandBase {
 
     ReadCommand command;
 

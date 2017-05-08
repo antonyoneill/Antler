@@ -4,10 +4,10 @@ import java.util.Collection;
 
 import tech.antonyoneill.antler.AntlerApplication;
 import tech.antonyoneill.antler.entity.Post;
-import tech.antonyoneill.antler.tests.StreamTest;
+import tech.antonyoneill.antler.tests.StreamBase;
 import tech.antonyoneill.antler.utils.PostPrinter;
 
-public class CommandTest extends StreamTest {
+public class CommandBase extends StreamBase {
 
     AntlerApplication app;
     MockPostPrinter   printer;

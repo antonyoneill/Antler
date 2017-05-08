@@ -15,7 +15,7 @@ import tech.antonyoneill.antler.entity.User;
 import tech.antonyoneill.antler.exceptions.CommandException;
 import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 
-public class PostCommandTest extends CommandTest {
+public class PostCommandTest extends CommandBase {
 
     PostCommand              command;
 

@@ -6,16 +6,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import tech.antonyoneill.antler.entity.User;
-import tech.antonyoneill.antler.entity.UserImpl;
+import tech.antonyoneill.antler.entity.User;
 
 public class UserManagerTest {
 
     UserManager userManager = new UserManager();
 
     public void testCanFollow() {
-        User userOne = new UserImpl("one");
-        UserImpl userTwo = new UserImpl("two");
-        UserImpl userThree = new UserImpl("three");
+        User userOne = new User("one");
+        User userTwo = new User("two");
+        User userThree = new User("three");
 
         userManager.follow(userOne, userTwo);
         assertTrue("UserOne is following UserTwo", userOne.getFollows().contains(userTwo));
@@ -32,7 +32,7 @@ public class UserManagerTest {
 
     @Test
     public void testCannotFollowThemselves() {
-        User user = new UserImpl("Test");
+        User user = new User("Test");
         assertEquals("The user is following no one", 0, user.getFollows().size());
         userManager.follow(user, user);
         assertEquals("The user is still following no one", 0, user.getFollows().size());
@@ -40,7 +40,7 @@ public class UserManagerTest {
 
     @Test
     public void testCanPost() {
-        User user = new UserImpl("tester");
+        User user = new User("tester");
 
         userManager.post(user, "First Post");
         assertEquals("User has a post", 1, user.getTimeline().size());

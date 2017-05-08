@@ -9,23 +9,23 @@ import java.util.List;
 import org.junit.Test;
 
 import tech.antonyoneill.antler.entity.Post;
-import tech.antonyoneill.antler.entity.PostImpl;
+import tech.antonyoneill.antler.entity.Post;
 import tech.antonyoneill.antler.entity.User;
-import tech.antonyoneill.antler.entity.UserImpl;
+import tech.antonyoneill.antler.entity.User;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
-import tech.antonyoneill.antler.tests.StreamTest;
+import tech.antonyoneill.antler.tests.StreamBase;
 
-public class PostPrinterImplTest extends StreamTest {
+public class PostPrinterImplTest extends StreamBase {
 
     PostPrinter printer = new PostPrinterImpl(new MockTimeUtil());
-    User        user    = new UserImpl("Tester");
+    User        user    = new User("Tester");
 
     @Test
     public void testPrintPosts() {
         List<Post> posts = new ArrayList<>();
-        posts.add(new PostImpl(Instant.now(), user, "post 1"));
-        posts.add(new PostImpl(Instant.now(), user, "post 2"));
-        posts.add(new PostImpl(Instant.now(), user, "post 3"));
+        posts.add(new Post(Instant.now(), user, "post 1"));
+        posts.add(new Post(Instant.now(), user, "post 2"));
+        posts.add(new Post(Instant.now(), user, "post 3"));
         printer.printPosts(posts);
 
         String out[] = getOutContent();

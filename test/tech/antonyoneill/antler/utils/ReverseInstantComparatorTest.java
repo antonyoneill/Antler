@@ -6,24 +6,26 @@ import java.time.Instant;
 
 import org.junit.Test;
 
-import tech.antonyoneill.antler.entity.HasCreatedInstant;
+import tech.antonyoneill.antler.entity.Post;
+import tech.antonyoneill.antler.entity.User;
 
 public class ReverseInstantComparatorTest {
 
     private ReverseInstantComparator comparator = new ReverseInstantComparator();
-
+    private User user = new User("Tester");
+    
     @Test
     public void testLeftEarlier() {
-        EntityForTest left = new EntityForTest(Instant.now().minusSeconds(60));
-        EntityForTest right = new EntityForTest(Instant.now());
+        Post left = new Post(Instant.now().minusSeconds(60), user, "left");
+        Post right = new Post(Instant.now(), user, "right");
 
         assertEquals("Left is greater than right", 1, comparator.compare(left, right));
     }
 
     @Test
     public void testRightEarlier() {
-        EntityForTest left = new EntityForTest(Instant.now());
-        EntityForTest right = new EntityForTest(Instant.now().minusSeconds(60));
+        Post left = new Post(Instant.now(), user, "left");
+        Post right = new Post(Instant.now().minusSeconds(60), user, "right");
 
         assertEquals("Left is less than right", -1, comparator.compare(left, right));
     }
@@ -31,21 +33,10 @@ public class ReverseInstantComparatorTest {
     @Test
     public void testEqual() {
         Instant instant = Instant.now();
-        EntityForTest left = new EntityForTest(instant);
-        EntityForTest right = new EntityForTest(instant);
+        Post left = new Post(instant, user, "left");
+        Post right = new Post(instant, user, "right");
 
         assertEquals("Left is equal to right", 0, comparator.compare(left, right));
     }
 
-    private class EntityForTest implements HasCreatedInstant {
-        private Instant createdInstant;
-
-        public EntityForTest(Instant instant) {
-            this.createdInstant = instant;
-        }
-
-        public Instant getCreatedInstant() {
-            return createdInstant;
-        }
-    }
 }
