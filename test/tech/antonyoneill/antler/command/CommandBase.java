@@ -17,7 +17,8 @@ public class CommandBase extends StreamBase {
         app = new AntlerApplication(System.console(), printer);
     }
 
-    class MockPostPrinter implements PostPrinter {
+    //TODO: Use Mockito here
+    class MockPostPrinter extends PostPrinter {
 
         Collection<Post> posts;
         Exception        exception;

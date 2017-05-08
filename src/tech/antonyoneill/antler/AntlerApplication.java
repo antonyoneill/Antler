@@ -12,7 +12,6 @@ import tech.antonyoneill.antler.command.WallCommand;
 import tech.antonyoneill.antler.exceptions.CommandException;
 import tech.antonyoneill.antler.exceptions.CommandSyntaxException;
 import tech.antonyoneill.antler.utils.PostPrinter;
-import tech.antonyoneill.antler.utils.PostPrinterImpl;
 import tech.antonyoneill.antler.utils.UserManager;
 
 /**
@@ -31,7 +30,7 @@ public class AntlerApplication {
     private Console       console;
     private List<Command> commands;
     private UserManager   userManager = new UserManager();
-    private PostPrinter   printer     = new PostPrinterImpl();
+    private PostPrinter   printer     = new PostPrinter();
 
     /**
      * Create the application and initialise the fields.

@@ -15,9 +15,9 @@ import tech.antonyoneill.antler.entity.User;
 import tech.antonyoneill.antler.exceptions.UnableToFindUserException;
 import tech.antonyoneill.antler.tests.StreamBase;
 
-public class PostPrinterImplTest extends StreamBase {
+public class PostPrinterTest extends StreamBase {
 
-    PostPrinter printer = new PostPrinterImpl(new MockTimeUtil());
+    PostPrinter printer = new PostPrinter(new MockTimeUtil());
     User        user    = new User("Tester");
 
     @Test
@@ -43,6 +43,7 @@ public class PostPrinterImplTest extends StreamBase {
         assertEquals("Unable to find user [Tester]", err[0]);
     }
 
+    //TODO: Use Mockito
     private class MockTimeUtil extends TimeUtil {
         public String timeDifference(Instant then) {
             return "DIFF";
